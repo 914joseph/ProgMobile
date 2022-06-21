@@ -2,17 +2,17 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:progmobile/cadastrar_medico.dart';
-import 'package:progmobile/Cabecalho.dart';
+import 'package:progmobile/cadastrar_plantao.dart';
 
 class DadosMenuCard extends StatefulWidget {
   final String opcao;
   final String icon;
-  final bool? boolfuncao;
+  final bool boolfuncao;
 
   const DadosMenuCard({
     Key? key,
     required this.opcao,
-    this.boolfuncao,
+    required this.boolfuncao,
     required this.icon,
   }) : super(key: key);
 
@@ -21,10 +21,6 @@ class DadosMenuCard extends StatefulWidget {
 }
 
 class _DadosMenuCardState extends State<DadosMenuCard> {
-  get boolfuncao => true;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +64,7 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
               padding: EdgeInsets.all(4),
               child: ElevatedButton(
                 onPressed: () {
-                  boolfuncao ? Navigator.push(context, MaterialPageRoute(builder: (context) => Cabecalho())) : Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
+                  widget.boolfuncao ? Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao())) : Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
 
 
                 },

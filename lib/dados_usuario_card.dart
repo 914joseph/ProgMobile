@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:progmobile/dados_usuario_card.dart';
 
 class DadosUsuarioCard extends StatefulWidget {
   final String nome;
@@ -23,7 +24,7 @@ class _DadosUsuarioCardState extends State<DadosUsuarioCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 70,
+        height: 60,
         width: double.maxFinite,
         decoration: BoxDecoration(
           border: Border.all(width: 4),
@@ -32,8 +33,10 @@ class _DadosUsuarioCardState extends State<DadosUsuarioCard> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 1,
+            /*Expanded(*/
+            /*flex: 1,*/
+            /*child: */ Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(14, 0, 0, 0),
               child: Center(
                 child: Container(
                   child: const Icon(Icons.person),
@@ -44,51 +47,42 @@ class _DadosUsuarioCardState extends State<DadosUsuarioCard> {
                 ),
               ),
             ),
+            /*),*/
             Expanded(
-              flex: 4,
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Nome:  ${widget.nome}',
-                            style: TextStyle(fontSize: 10.0),
-                          ),
-                          Text(
-                            'Entrada: ${widget.entrada}',
-                            style: TextStyle(fontSize: 10.0),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'CPF: ${widget.cpf}',
-                            style: TextStyle(fontSize: 10.0),
-                          ),
-                          Text(
-                            'Situação: ${widget.situacao}',
-                            style: TextStyle(fontSize: 10.0),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+                child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Column(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                      'Nome:  ${widget.nome}',
+                                      style: TextStyle(fontSize: 12.0),
+                                    )),
+                                Expanded(
+                                    child: Text(
+                                      'CPF:  ${widget.cpf}',
+                                      style: TextStyle(fontSize: 12.0),
+                                    )),
+                              ],
+                            )),
+                        Expanded(
+                            child: Column(children: [
+                              Expanded(
+                                  child: Text(
+                                    'Entrada:  ${widget.entrada}',
+                                    style: TextStyle(fontSize: 12.0),
+                                  )),
+                              Expanded(
+                                  child: Text(
+                                    'Situação:  ${widget.situacao}',
+                                    style: TextStyle(fontSize: 12.0),
+                                  )),
+                            ])),
+                      ],
+                    )))
           ],
         ),
       ),

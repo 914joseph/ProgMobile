@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:progmobile/dados_usuario_card.dart';
 
 class CadastrarMedico extends StatefulWidget {
   const CadastrarMedico({Key? key}) : super(key: key);
@@ -32,7 +33,13 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
         child: Container(
           child: ListView(
             children: [
-              Container(
+              const DadosUsuarioCard(
+                nome: '**************',
+                entrada: '**********',
+                cpf: '*************',
+                situacao: '**************',
+              )
+              /*Container(
                 height: 100,
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
@@ -87,7 +94,8 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
                     ),
                   ],
                 ),
-              ),
+              )*/
+              ,
               Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                   child: Container(
@@ -212,12 +220,16 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
                     ],
                   ),
                   Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20), primary: Colors.grey[350], shape: StadiumBorder(), side: BorderSide(width: 1, color: Colors.black)),
-                        onPressed: () {},
-                        child: const Text('Cadastrar', style: TextStyle(color: Colors.black)),
-                      ))
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
+                      child: Column(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.center, children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20), primary: Colors.grey[350], shape: StadiumBorder(), side: BorderSide(width: 1, color: Colors.black)),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cadastrar', style: TextStyle(color: Colors.black)),
+                        )
+                      ]))
                 ],
               )
             ],
