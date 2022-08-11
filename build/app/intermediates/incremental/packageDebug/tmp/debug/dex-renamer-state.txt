@@ -1,4 +1,4 @@
-#Tue Aug 09 11:22:05 BRT 2022
-base.0=C\:\\Users\\Aluno\\Desktop\\supercovid\\ProgMobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Thu Aug 11 08:45:09 BRT 2022
+base.0=C\:\\Users\\Aluno\\Desktop\\emylle\\ProgMobile\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
