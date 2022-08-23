@@ -55,7 +55,7 @@ class _DadosUsuarioCardState extends State<DadosUsuarioCard> {
                             textAlign: TextAlign.center,
                             style: const TextStyle(fontSize: 12.0),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 10),
                           Text(
                             'CPF:  ${widget.dadosCard.cpf}',
                             style: const TextStyle(fontSize: 12.0),
@@ -73,7 +73,7 @@ class _DadosUsuarioCardState extends State<DadosUsuarioCard> {
                             textAlign: TextAlign.center,
                             style: const TextStyle(fontSize: 12.0),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 10),
                           Text(
                             'Situação:  ${widget.dadosCard.situacao}',
                             textAlign: TextAlign.center,
