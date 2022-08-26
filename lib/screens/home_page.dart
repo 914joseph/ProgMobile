@@ -28,12 +28,8 @@ class _HomePage extends State<HomePage> {
                 fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center),
         actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                    'https://cdn-icons-png.flaticon.com/512/504/504276.png')),
+          CircleAvatar(radius: 30,
+            backgroundImage: AssetImage("images/logoo.png"),
           ),
         ],
       ),
