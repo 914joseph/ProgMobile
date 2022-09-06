@@ -94,7 +94,7 @@ class _DadosUsuarioCardState extends State<DadosUsuarioCard> {
 
   Image buildImage() {
     String imagem =
-        widget.dadosCard.imagem == "" ? "" : widget.dadosCard.imagem;
+        widget.dadosCard.imagem == "" ? "assets/images/bianca_photo.jpg" : widget.dadosCard.imagem;
 
     return Image.asset(imagem);
   }

@@ -38,14 +38,7 @@ class _HomePage extends State<HomePage> {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            DadosUsuarioCard(
-              dadosCard: Usuario(
-                  nome: BD.listaUsuario[1].dadosCard.nome,
-                  cpf: BD.listaUsuario[1].dadosCard.cpf,
-                  entrada: BD.listaUsuario[1].dadosCard.entrada,
-                  situacao: BD.listaUsuario[1].dadosCard.situacao,
-                  imagem: BD.listaUsuario[1].dadosCard.imagem),
-            ),
+           BD.listaUsuario[1],
             const SizedBox(height: 40),
             DadosMenuCard(
               dadosOpcoesMenu: OpcoesMenu(
