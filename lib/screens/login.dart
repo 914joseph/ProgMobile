@@ -20,8 +20,8 @@ class _Login extends State<Login> {
         backgroundColor: Colors.lightGreen[200],
         title: Text('SISTEMA GERENCIADOR \n DE PLANTÃO', style: const TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
         actions: <Widget>[
-            CircleAvatar(radius: 30,
-                backgroundImage: AssetImage("images/logoo.png"),
+            CircleAvatar(radius: 32,
+                backgroundImage: AssetImage("assets/images/logoo.png"),
           ),
         ],
       ),

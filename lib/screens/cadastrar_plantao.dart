@@ -26,7 +26,7 @@ class _CadastrarPlantaoState extends State<CadastrarPlantao> {
                 onPressed: () => Navigator.pop(context, false),
                 child: const Text('Cancelar'),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () => Navigator.pop(context, true),
                 child: const Text('Sair'),
               ),
@@ -72,8 +72,8 @@ class _CadastrarPlantaoState extends State<CadastrarPlantao> {
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center),
           actions: <Widget>[
-            CircleAvatar(radius: 30,
-              backgroundImage: AssetImage("images/logoo.png"),
+            CircleAvatar(radius: 32,
+              backgroundImage: AssetImage("assets/images/logoo.png"),
             ),
           ],
         ),

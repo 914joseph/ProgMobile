@@ -26,7 +26,7 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
                 onPressed: () => Navigator.pop(context, false),
                 child: const Text('Cancelar'),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () => Navigator.pop(context, true),
                 child: const Text('Sair'),
               ),
@@ -68,8 +68,8 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
                 fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center),
         actions: <Widget>[
-          CircleAvatar(radius: 30,
-            backgroundImage: AssetImage("images/logoo.png"),
+          CircleAvatar(radius: 32,
+            backgroundImage: AssetImage("assets/images/logoo.png"),
           ),
         ],
       ),

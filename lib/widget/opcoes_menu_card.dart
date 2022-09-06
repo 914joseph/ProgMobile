@@ -3,6 +3,8 @@ import 'package:progmobile/domain/opcoes_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:progmobile/screens/cadastrar_medico.dart';
 import 'package:progmobile/screens/cadastrar_plantao.dart';
+import 'package:progmobile/screens/list_page.dart';
+import 'package:progmobile/screens/listagem_plantoes.dart';
 
 class DadosMenuCard extends StatefulWidget {
   final OpcoesMenu dadosOpcoesMenu;
@@ -61,7 +63,13 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
               child: ElevatedButton(
                 onPressed: () {
                   widget.dadosOpcoesMenu.boolfuncao ? Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao())) : Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
-
+                  if (widget.dadosOpcoesMenu.index == 1){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao()));
+                  } else if (widget.dadosOpcoesMenu.index == 2){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
+                  } else if (widget.dadosOpcoesMenu.index == 3){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));
+                  }
 
                 },
                 child: Icon(Icons.send, size: 15, color: Colors.black),

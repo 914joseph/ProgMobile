@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    const MaterialApp(home: Login(),debugShowCheckedModeBanner: false,),
+    const MaterialApp(home: Login(),debugShowCheckedModeBanner: false, title: "SGP",),
   );
 }
 

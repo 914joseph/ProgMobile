@@ -28,8 +28,8 @@ class _HomePage extends State<HomePage> {
                 fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center),
         actions: <Widget>[
-          CircleAvatar(radius: 30,
-            backgroundImage: AssetImage("images/logoo.png"),
+          CircleAvatar(radius: 32,
+            backgroundImage: AssetImage("assets/images/logoo.png"),
           ),
         ],
       ),
@@ -52,15 +52,25 @@ class _HomePage extends State<HomePage> {
                   opcao: "Cadastrar Plantão",
                   icon:
                       "https://cdn-icons-png.flaticon.com/512/4185/4185164.png",
-                  boolfuncao: true),
+                  boolfuncao: true,
+                  index: 1),
             ),
             DadosMenuCard(
               dadosOpcoesMenu: OpcoesMenu(
                   opcao: "Cadastrar Médico",
                   icon:
                       "https://cdn-icons-png.flaticon.com/512/4185/4185164.png",
-                  boolfuncao: false),
+                  boolfuncao: false,
+                  index: 2),
             ),
+            DadosMenuCard(
+              dadosOpcoesMenu: OpcoesMenu(
+                  opcao: "Listagem de Médicos/Plantões",
+                  icon:
+                  "https://cdn-icons-png.flaticon.com/512/4185/4185164.png",
+                  boolfuncao: true,
+                  index: 3),
+            )
           ],
         ),
       ),
