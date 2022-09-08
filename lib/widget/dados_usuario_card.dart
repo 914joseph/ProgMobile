@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widget/dados_usuario_card.dart';
 import '../domain/dados_usuario.dart';
 
 class DadosUsuarioCard extends StatefulWidget {

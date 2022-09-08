@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:progmobile/screens/cadastrar_medico.dart';
 import 'package:progmobile/screens/cadastrar_plantao.dart';
 import 'package:progmobile/screens/list_page.dart';
-import 'package:progmobile/screens/listagem_plantoes.dart';
+import 'package:progmobile/data/BDMenu.dart';
+
 
 class DadosMenuCard extends StatefulWidget {
-  final OpcoesMenu dadosOpcoesMenu;
+  final OpcoesMenu opcoesMenu;
 
   const DadosMenuCard({
     Key? key,
-    required this.dadosOpcoesMenu
+    required this.opcoesMenu
   }) : super(key: key);
 
   @override
@@ -46,11 +47,11 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
                   child: Row(
                     children: [
                       Center(
-                        child: Image.network(widget.dadosOpcoesMenu.icon),
+                        child: Image.network(widget.opcoesMenu.icon),
                       ),
                       SizedBox(width: 16),
                       Text(
-                        widget.dadosOpcoesMenu.opcao,
+                        widget.opcoesMenu.opcao,
                         style: TextStyle(fontSize: 12.0),
                       ),
                     ],
@@ -62,12 +63,12 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
               padding: EdgeInsets.all(4),
               child: ElevatedButton(
                 onPressed: () {
-                  widget.dadosOpcoesMenu.boolfuncao ? Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao())) : Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
-                  if (widget.dadosOpcoesMenu.index == 1){
+                  widget.opcoesMenu.boolfuncao ? Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao())) : Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
+                  if (widget.opcoesMenu.index == 0){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao()));
-                  } else if (widget.dadosOpcoesMenu.index == 2){
+                  } else if (widget.opcoesMenu.index == 1){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
-                  } else if (widget.dadosOpcoesMenu.index == 3){
+                  } else if (widget.opcoesMenu.index == 2){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));
                   }
 

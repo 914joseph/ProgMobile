@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:progmobile/data/BDMenu.dart';
 import '../widget/dados_usuario_card.dart';
 import '../widget/opcoes_menu_card.dart';
 import '../domain/dados_usuario.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  List<DadosMenuCard> lista = BDMenu.opcoesMenu;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,9 @@ class _HomePage extends State<HomePage> {
           children: [
            BD.listaUsuario[1],
             const SizedBox(height: 40),
-            DadosMenuCard(
+
+            buildListView(context),
+            /*DadosMenuCard(
               dadosOpcoesMenu: OpcoesMenu(
                   opcao: "Cadastrar Plantão",
                   icon:
@@ -63,10 +67,22 @@ class _HomePage extends State<HomePage> {
                   "https://cdn-icons-png.flaticon.com/512/4185/4185164.png",
                   boolfuncao: true,
                   index: 3),
-            )
+            )*/
           ],
         ),
       ),
+    );
+  }
+  buildListView(BuildContext context) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: lista.length,
+      itemBuilder: (context, index) {
+        return DadosMenuCard(
+          opcoesMenu: (lista[index].opcoesMenu),
+        );
+      },
     );
   }
 }
