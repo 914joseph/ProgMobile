@@ -85,7 +85,8 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
                     cpf: BD.listaUsuario[2].dadosCard.cpf,
                     imagem: BD.listaUsuario[2].dadosCard.imagem,
                     entrada: BD.listaUsuario[2].dadosCard.entrada,
-                    situacao: BD.listaUsuario[2].dadosCard.situacao),
+                    situacao: BD.listaUsuario[2].dadosCard.situacao,
+                senha: null),
               )
               /*Container(
                 height: 100,
