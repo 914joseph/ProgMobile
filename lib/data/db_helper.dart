@@ -22,7 +22,7 @@ class DBHelper {
     String sql = 'create table BANCO (id INTEGER PRIMARY KEY, cpf varchar(9), senha varchar(100));';
     await db.execute(sql);
 
-    sql = "INSERT INTO BANCO (id, cpf, senha) VALUES (1, '123456789', 'sehha');";
+    sql = "INSERT INTO BANCO (id, cpf, senha) VALUES (1, '123456789', 'senha');";
     await db.execute(sql);
   }
 }

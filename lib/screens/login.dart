@@ -1,3 +1,9 @@
+import 'dart:async';
+
+import 'package:progmobile/domain/dados_usuario.dart';
+
+import '../data/BDLogin.dart';
+import '../data/banco_dao.dart';
 import '../screens/login.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
@@ -9,8 +15,15 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
-
+late bool isloading = false;
 class _LoginState extends State<Login> {
+
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Dao dao = Dao();
+
+
   Future<bool?> showDialogLogin() {
     Future.delayed(const Duration(seconds: 5));
     return showDialog(
@@ -33,7 +46,7 @@ class _LoginState extends State<Login> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const Login();
+                        return const HomePage();
                       },
                     ),
                   );
@@ -53,14 +66,20 @@ class _LoginState extends State<Login> {
           // );
         });
   }
-
-  TextEditingController userController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isloading = false;
+  }
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Color(0xffc5e1a5),
       appBar: AppBar(
@@ -80,143 +99,171 @@ class _LoginState extends State<Login> {
                 backgroundImage: AssetImage("assets/images/logoo.png"),)
           )],
     ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                'HOSPITAL DO AMOR - SGP - SISTEMA GERENCIADOR DE PLANTÃO',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                 Text(
+                  'HOSPITAL DO AMOR - SGP - SISTEMA GERENCIADOR DE PLANTÃO',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.black,
+                 SizedBox(height: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                  ),
+                  padding:  EdgeInsets.all(4),
+                  child: Column(
+                    children: [
+                       Text(
+                        'ATENÇÃO!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                       Text(
+                        'O sistema diferencia letras maiúsculas de minúsculas APENAS na senha, portanto ela deve ser digitada da mesma maneira que no cadastro.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                       Text(
+                        'Durante o login não é necessário adicionar o traço ( -) e/ou ponto (.) , ou qual quer outro tipo de sinal.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                padding: const EdgeInsets.all(4),
-                child: Column(
-                  children: [
-                    const Text(
-                      'ATENÇÃO!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Text(
-                      'O sistema diferencia letras maiúsculas de minúsculas APENAS na senha, portanto ela deve ser digitada da mesma maneira que no cadastro.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Text(
-                      'Durante o login não é necessário adicionar o traço ( -) e/ou ponto (.) , ou qual quer outro tipo de sinal.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Campo obrigatório";
-                  }
+                SizedBox(height: 16),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo obrigatório";
+                    } else if (value!.length < 9 || value!.length > 9) {
+                      return "o cpf digitado precisa ter 9 caracteres!";
+                    }
 
-                  return null;
-                },
-                controller: userController,
-                decoration: const InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.all(10),
-                  isDense: true,
-                  filled: true, //<-- SEE HERE
-                  fillColor: Colors.white,
-                  labelText: 'Usuario',
-                  border: OutlineInputBorder(
-                    // ou UnderlineInputBorder()
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(color: Colors.amberAccent, width: 1),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Campo obrigatório";
-                  } else if (value!.length < 6) {
-                    return "A senha precisa ter no minimo 6 digitos";
-                  }
-
-                  return null;
-                },
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.all(10),
-                  isDense: true,
-                  filled: true, //<-- SEE HERE
-                  fillColor: Colors.white,
-                  labelText: 'Senha',
-                  border: OutlineInputBorder(
-                    // ou UnderlineInputBorder()
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(color: Colors.amberAccent, width: 1),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: onPressed,
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff000000),
-                  shape: StadiumBorder(),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
-                  child: Text(
-                    'Entrar',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+                    return null;
+                  },
+                  controller: cpfController,
+                  decoration:  InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10),
+                    isDense: true,
+                    filled: true, //<-- SEE HERE
+                    fillColor: Colors.white,
+                    labelText: 'Cpf',
+                    border: OutlineInputBorder(
+                      // ou UnderlineInputBorder()
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(color: Colors.amberAccent, width: 1),
                     ),
                   ),
                 ),
-              ),
-            ],
+                 SizedBox(height: 16),
+                TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Campo obrigatório";
+                    }
+
+                    return null;
+                  },
+                  controller: passwordController,
+                  decoration:  InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.all(10),
+                    isDense: true,
+                    filled: true, //<-- SEE HERE
+                    fillColor: Colors.white,
+                    labelText: 'Senha',
+                    border: OutlineInputBorder(
+                      // ou UnderlineInputBorder()
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(color: Colors.amberAccent, width: 1),
+                    ),
+                  ),
+                ),
+                 SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: onPressed,
+                  style: ElevatedButton.styleFrom(
+                    primary:  Color(0xff000000),
+                    shape: StadiumBorder(),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    child: isloading ? CircularProgressIndicator() : Text('Entrar', style: TextStyle(fontSize: 16,color: Colors.white)),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  void onPressed() {
-    String userDigitado = userController.text;
+  Future<void> onPressed() async {
+    print(isloading);
+    isloading = true;
+    print(isloading);
+    String cpfDigitado = cpfController.text;
     String passwordDigitado = passwordController.text;
 
     String user = 'joao@gmail.com';
     String password = '123456';
+     List<Usuario> listausuario = await dao.listarUsuarios();
 
+    print(listausuario[0].cpf);
+    print(listausuario[0].senha);
     if (_formKey.currentState!.validate()) {
-      if (userDigitado == user && passwordDigitado == password) {
+      for (int i = 0; i < listausuario.length; i++) {
+        if (cpfDigitado == listausuario[i].cpf &&
+            passwordDigitado == listausuario[i].senha) {
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const HomePage();
+              },
+            ),
+          );
+          showDialogLogin();
+        } else {
+          final snackbar = const SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text(
+              'Usuario/Senha incorreto(s)!',
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        }
+      }
+
+    }
+    /*if (_formKey.currentState!.validate()) {
+      if (cpfDigitado == user && passwordDigitado == password) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -235,7 +282,7 @@ class _LoginState extends State<Login> {
         );
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }
-    }
+    }*/
   }
 }
 

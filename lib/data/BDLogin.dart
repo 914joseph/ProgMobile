@@ -1,6 +1,6 @@
 import 'package:progmobile/domain/dados_usuario.dart';
 
-class BD {
+class BDLogin {
   static List<Usuario> listaUsuarios = [
 
   ];
