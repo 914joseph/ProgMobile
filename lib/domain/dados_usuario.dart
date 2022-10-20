@@ -22,7 +22,7 @@ class Usuario{
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     data['cpf'] = cpf;
-    data['senha'] = nome;
+    data['senha'] = senha;
 
 
     return data;
