@@ -40,30 +40,8 @@ class _LoginState extends State<Login> {
                 color: Colors.black,
                 size: 24.0,
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const HomePage();
-                      },
-                    ),
-                  );
-                },
-                child: const Text('Ok'),
-              ),
             ],
           );
-          // Text('Seu login foi efetuado com sucesso...'),
-          //     IconButton(
-          //       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //       icon: Icon(Icons.arrow_back), //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //       color: Colors.black, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //       onPressed: () {}), //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-          //   //chaves do title Text
-          // );
         });
   }
 @override
@@ -95,7 +73,7 @@ class _LoginState extends State<Login> {
           Padding(
             padding: EdgeInsets.only(right: 8),
             child: CircleAvatar(
-                radius: 30,
+                radius: 32,
                 backgroundImage: AssetImage("assets/images/logoo.png"),)
           )],
     ),
@@ -212,7 +190,7 @@ class _LoginState extends State<Login> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
-                    child: isloading ? CircularProgressIndicator() : Text('Entrar', style: TextStyle(fontSize: 16,color: Colors.white)),
+                    child: isloading ? SizedBox(height: 24,child: CircularProgressIndicator()) : Text('Entrar', style: TextStyle(fontSize: 16,color: Colors.white)),
                   ),
                 ),
               ],
@@ -224,23 +202,19 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> onPressed() async {
-    print(isloading);
-    isloading = true;
-    print(isloading);
+    setState(() {
+      isloading = true;
+    });
+
     String cpfDigitado = cpfController.text;
     String passwordDigitado = passwordController.text;
-
-    String user = 'joao@gmail.com';
-    String password = '123456';
      List<Usuario> listausuario = await dao.listarUsuarios();
-
     print(listausuario[0].cpf);
     print(listausuario[0].senha);
     if (_formKey.currentState!.validate()) {
-      for (int i = 0; i < listausuario.length; i++) {
-        if (cpfDigitado == listausuario[i].cpf &&
-            passwordDigitado == listausuario[i].senha) {
 
+      listausuario.forEach((element) {
+        if(element.cpf == cpfDigitado && element.senha == passwordDigitado){
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -251,6 +225,9 @@ class _LoginState extends State<Login> {
           );
           showDialogLogin();
         } else {
+          setState(() {
+            isloading= false;
+          });
           final snackbar = const SnackBar(
             behavior: SnackBarBehavior.floating,
             content: Text(
@@ -259,38 +236,12 @@ class _LoginState extends State<Login> {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
-      }
-
+      });
+    } else{
+      setState(() {
+        isloading= false;
+      });
     }
-    /*if (_formKey.currentState!.validate()) {
-      if (cpfDigitado == user && passwordDigitado == password) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const Login();
-            },
-          ),
-        );
-        showDialogLogin();
-      } else {
-        final snackbar = const SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'Usuario/Senha incorreto(s)!',
-          ),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackbar);
-      }
-    }*/
+
   }
 }
-
-
-
-
-// actions: <Widget>[
-//             CircleAvatar(radius: 32,
-//                 backgroundImage: AssetImage("assets/images/logoo.png"),
-//           ),
-//         ],

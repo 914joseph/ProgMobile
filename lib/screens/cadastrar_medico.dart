@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../widget/dados_usuario_card.dart';
 import '../domain/dados_usuario.dart';
 import '../data/BD.dart';
+import 'home_page.dart';
 
 class CadastrarMedico extends StatefulWidget {
   const CadastrarMedico({Key? key}) : super(key: key);
@@ -54,13 +55,12 @@ class _CadastrarMedicoState extends State<CadastrarMedico> {
         centerTitle: true,
         backgroundColor: Colors.lightGreen[200],
         leading: IconButton(
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            icon: Icon(Icons
-                .arrow_back), //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            color:
-            Colors.black, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          icon: Icon(
+              Icons.arrow_back), //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          color: Colors.black, //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                HomePage()), (Route<dynamic> route) => false);
           },
         ),
         title: Text('SISTEMA GERENCIADOR \n DE PLANTÃO',

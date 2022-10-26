@@ -16,9 +16,37 @@ class DadosMenuCard extends StatefulWidget {
 
   @override
   _DadosMenuCardState createState() => _DadosMenuCardState();
+
 }
 
 class _DadosMenuCardState extends State<DadosMenuCard> {
+ late bool circle =false;
+
+ @override
+  initState(){
+   circle=false;
+ }
+
+  Future showDialogg() async{
+    setState(() {
+      circle = true;
+    });
+    return  showDialog<void>(
+
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            actions: [
+              circle ? Center(child: CircularProgressIndicator()) : Text("n foi"),
+
+            ],
+          );
+          Future.delayed(const Duration(seconds: 3));
+        });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +90,7 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
               padding: EdgeInsets.all(4),
               child: ElevatedButton(
                 onPressed: () {
-                  widget.dadosOpcoesMenu.boolfuncao ? Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao())) : Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
+                  showDialogg();
                   if (widget.dadosOpcoesMenu.index == 1){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPlantao()));
                   } else if (widget.dadosOpcoesMenu.index == 2){
@@ -70,7 +98,6 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
                   } else if (widget.dadosOpcoesMenu.index == 3){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));
                   }
-
                 },
                 child: Icon(Icons.send, size: 15, color: Colors.black),
                 style: OutlinedButton.styleFrom(

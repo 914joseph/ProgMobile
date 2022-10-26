@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:progmobile/data/BDLogin.dart';
+
+import '../data/banco_dao.dart';
+import '../domain/dados_usuario.dart';
+import 'login.dart';
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MUDAR DEPOIS!!!!!!!!!!!!!!!!!!!!!!
 class ListagemPlantoes extends StatefulWidget {
@@ -16,6 +21,9 @@ class _ListagemPlantoesState extends State<ListagemPlantoes> {
       .toList();
 
   int _selectedIndex = 0;
+  Dao dao = Dao();
+  int indexx = 0;
+  List<String> lista = ['1','m','gsaeg'];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -53,29 +61,38 @@ class _ListagemPlantoesState extends State<ListagemPlantoes> {
               crossAxisSpacing: 20,
               mainAxisSpacing: 20),
           itemCount: myProducts.length,
-          itemBuilder: (BuildContext ctx, index) {
+          itemBuilder: (BuildContext ctx, indexx) {
             return ElevatedButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(myProducts[index]["name"]),
-                        content: Text("Saved successfully"),
-                      );
-                    });
-              },
+              onPressed: onPressed,
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12), // <-- Radius
                 ),
               ),
-              child: Text(myProducts[index]["name"], style: TextStyle(color: Colors.black),),
+              child: Text(myProducts[indexx]["name"], style: TextStyle(color: Colors.black),),
             );
           },
         ),
       ),
     );
+  }
+
+  Future<void> onPressed() async {
+    List<Usuario> listausuario = await dao.listarUsuarios();
+    setState(() {
+      indexx = listausuario.length;
+    });
+    print(indexx);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(myProducts[indexx]["name"]),
+            content: Text(listausuario[indexx].nome),
+          );
+        });
+
+
   }
 }
