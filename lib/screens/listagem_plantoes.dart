@@ -79,6 +79,7 @@ class _ListagemPlantoesState extends State<ListagemPlantoes> {
   }
 
   Future<void> onPressed() async {
+    /*
     List<Usuario> listausuario = await dao.listarUsuarios();
     setState(() {
       indexx = listausuario.length;
@@ -93,6 +94,6 @@ class _ListagemPlantoesState extends State<ListagemPlantoes> {
           );
         });
 
-
+*/
   }
 }

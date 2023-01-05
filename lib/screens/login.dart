@@ -1,13 +1,14 @@
 import 'dart:async';
 
-import 'package:progmobile/domain/dados_usuario.dart';
 
-import '../data/BDLogin.dart';
+import 'package:progmobile/screens/home_page.dart';
+import 'package:progmobile/screens/signup_page.dart';
+
+
 import '../data/banco_dao.dart';
-import '../screens/login.dart';
+
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'package:flutter/material.dart';
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,9 +19,9 @@ class Login extends StatefulWidget {
 late bool isloading = false;
 class _LoginState extends State<Login> {
 
-  TextEditingController cpfController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController _cpfController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   Dao dao = Dao();
 
 
@@ -32,7 +33,6 @@ class _LoginState extends State<Login> {
           return AlertDialog(
             title: const Text('SEJA BEM-VINDO!'),
             backgroundColor: Colors.white,
-            //form: RoundedRectangleBorder(borderRadius.all (Radius.circular(20))),
             content: Text('Seu login foi efetuado com sucesso...'),
             actions: [
               Icon(
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
         child: Padding(
           padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 30),
           child: Form(
-            key: _formKey,
+            key: _formkey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -135,22 +135,21 @@ class _LoginState extends State<Login> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Campo obrigatório";
-                    } else if (value!.length < 9 || value!.length > 9) {
+                    } /*else if (value!.length != 9) {
                       return "o cpf digitado precisa ter 9 caracteres!";
-                    }
+                    }*/
 
                     return null;
                   },
-                  controller: cpfController,
+                  controller: _cpfController,
                   decoration:  InputDecoration(
                     enabledBorder: InputBorder.none,
                     contentPadding: EdgeInsets.all(10),
                     isDense: true,
-                    filled: true, //<-- SEE HERE
+                    filled: true,
                     fillColor: Colors.white,
                     labelText: 'Cpf',
                     border: OutlineInputBorder(
-                      // ou UnderlineInputBorder()
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: Colors.amberAccent, width: 1),
                     ),
@@ -166,7 +165,7 @@ class _LoginState extends State<Login> {
 
                     return null;
                   },
-                  controller: passwordController,
+                  controller: _passwordController,
                   decoration:  InputDecoration(
                     enabledBorder: InputBorder.none,
                     contentPadding: EdgeInsets.all(10),
@@ -175,7 +174,6 @@ class _LoginState extends State<Login> {
                     fillColor: Colors.white,
                     labelText: 'Senha',
                     border: OutlineInputBorder(
-                      // ou UnderlineInputBorder()
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: Colors.amberAccent, width: 1),
                     ),
@@ -193,6 +191,18 @@ class _LoginState extends State<Login> {
                     child: isloading ? SizedBox(height: 24,child: CircularProgressIndicator()) : Text('Entrar', style: TextStyle(fontSize: 16,color: Colors.white)),
                   ),
                 ),
+                SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: onPressedRegister,
+                  style: ElevatedButton.styleFrom(
+                    primary:  Color(0xff000000),
+                    shape: StadiumBorder(),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    child: isloading ? SizedBox(height: 24,child: CircularProgressIndicator()) : Text('Cadastrar-se', style: TextStyle(fontSize: 16,color: Colors.white)),
+                  ),
+                ),
               ],
             ),
           ),
@@ -202,7 +212,40 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> onPressed() async {
-    setState(() {
+ print(_cpfController.text.length);
+    if (_formkey.currentState!.validate()) {
+      String cpf = _cpfController.text;
+      String pwd = _passwordController.text;
+      bool resultado = await Dao().autenticar(cpf: cpf, senha: pwd);
+      print(resultado);
+
+      if (resultado) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+      } else {
+        final msg = SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            ("Usuario/Senha incorretos"),
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(msg);
+      }
+    } else {
+      print("Formulário invalido");
+    }
+  }
+
+  void onPressedRegister() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const SignUpPage();
+        },
+      ),
+    );
+
+    /*setState(() {
       isloading = true;
     });
 
@@ -241,7 +284,7 @@ class _LoginState extends State<Login> {
       setState(() {
         isloading= false;
       });
-    }
+    }*/
 
   }
 }

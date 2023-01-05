@@ -1,10 +1,12 @@
 import 'dart:typed_data';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:progmobile/domain/opcoes_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:progmobile/screens/cadastrar_medico.dart';
 import 'package:progmobile/screens/cadastrar_plantao.dart';
 import 'package:progmobile/screens/list_page.dart';
 import 'package:progmobile/screens/listagem_plantoes.dart';
+import 'package:progmobile/screens/map_page.dart';
 
 class DadosMenuCard extends StatefulWidget {
   final OpcoesMenu dadosOpcoesMenu;
@@ -97,6 +99,8 @@ class _DadosMenuCardState extends State<DadosMenuCard> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarMedico()));
                   } else if (widget.dadosOpcoesMenu.index == 3){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ListPage()));
+                  } else if (widget.dadosOpcoesMenu.index == 4){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(location: LatLng(-9.7454125, -36.6313577))));
                   }
                 },
                 child: Icon(Icons.send, size: 15, color: Colors.black),

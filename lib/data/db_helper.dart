@@ -19,10 +19,10 @@ class DBHelper {
 
   Future<FutureOr<void>> onCreate(Database db, int version) async {
 
-    String sql = 'create table BANCO (id INTEGER PRIMARY KEY, cpf varchar(9), senha varchar(100));';
+    String sql = 'create table BANCO (id INTEGER PRIMARY KEY, cpf varchar(11), senha varchar(100));';
     await db.execute(sql);
 
-    sql = "INSERT INTO BANCO (id, cpf, senha) VALUES (1, '123456789', 'senha');";
+    sql = "INSERT INTO BANCO (id, cpf, senha) VALUES (1, '123456789', 'senha');"; //123?
     await db.execute(sql);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:progmobile/screens/login.dart';
 import '../widget/dados_usuario_card.dart';
 import '../widget/opcoes_menu_card.dart';
 import '../domain/dados_usuario.dart';
@@ -15,6 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+
+  onPressed(){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +70,16 @@ class _HomePage extends State<HomePage> {
                   "https://cdn-icons-png.flaticon.com/512/4185/4185164.png",
                   boolfuncao: true,
                   index: 3),
-            )
+            ),
+            DadosMenuCard(
+              dadosOpcoesMenu: OpcoesMenu(
+                  opcao: "Localização do Hospital",
+                  icon:
+                  "https://cdn-icons-png.flaticon.com/512/4185/4185164.png",
+                  boolfuncao: true,
+                  index: 4),
+            ),
+            ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.grey[800]),onPressed: onPressed, child: Text("Sair"))
           ],
         ),
       ),
